@@ -14,8 +14,8 @@ function setup() {
 }
 
 function draw() {
-  swapStateIfNeded()
-  showBackground()
+  swapStateIfNeded();
+  showBackground();
 }
 
 function swapStateIfNeded(){
@@ -27,8 +27,8 @@ function swapStateIfNeded(){
 
 function showBackground(){
   if (isWhite){
-    background("white")
+    background("white");
   }else{
-    background("black")
+    background("black");
   }
 }

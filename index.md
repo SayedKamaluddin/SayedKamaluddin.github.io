@@ -1,5 +1,5 @@
 # cs30 prograse
-  [Color Swap Timer](Color-Time-Swap)
+- [Color Swap Timer](Color-Time-Swap)
 
 # cs30 projects
-  [First Project Clock](First%20Project-Clock)
+- [First Project Clock](First-Project-Clock)
