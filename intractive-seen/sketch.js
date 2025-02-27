@@ -47,7 +47,7 @@ function keyPressed(){
   let randR = random(255);
   let randG = random(255);
   let randB = random(255);
-  for(let i = 0; i < 10; i++){
+  for(let i = 0; i < 50; i++){
     randR-=10;
     randB-=10;
     randG-=10;

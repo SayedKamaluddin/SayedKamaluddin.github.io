@@ -28,7 +28,8 @@ function swapStateIfNeded(){
 function showBackground(){
   if (isWhite){
     background("white");
-  }else{
+  } 
+  else{
     background("black");
   }
 }
