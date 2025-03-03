@@ -5,79 +5,43 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let x;
-let y;
-let timmer;
-let size = 30;
+let x, y;
+let boxSize = 5;
+let rows, cols;
+let song;
 
+function preload() {
+  song = loadSound("../sound-sample.webm");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(10);
-  x = mouseX;
-  y = mouseY;
+  // rows = height / boxSize;
+  // cols = width / boxSize;
+  background(255);
   noStroke();
-
 }
 
 function draw() {
-  // background(0);
-  mouseFollower();
-  // console.log("hello");
-  // sleep(1000);
-  // console.log("bye");
+  background(20,10,20,10);
+  changeMouseSournding()
+  if (isDetected){
+    console.log("Detected");
+  }
 }
 
-function mouseFollower(){
-  if (x !== mouseX || y !== mouseY){
+function changeMouseSournding(){
+  x = mouseX;
+  y = mouseY;
+  if (x!==mouseX || y!==mouseY){
+    fill(255, 0, 0);
     circle(mouseX, mouseY, 50);
-    fill(random(255), random(255), random(255), 50);
-    x = mouseX;
-    y = mouseY;
+    fill(20,10,20);
+    circle(mouseX, mouseY, 45); 
+  }
+  else{
+    fill(255);
+    circle(mouseX, mouseY, 50);
   }
 }
 
-// function resetBackground(){
-//   for(let i = 0; i < 10; i++){
-
-//   }
-//   background(10,10,10,);
-// }
-
-function keyPressed(){
-  let newSize = size;
-  let oldSize;
-  let randx = random(windowWidth);
-  let randy = random(windowHeight);
-  // let randR = random(255);
-  // let randG = random(255);
-  // let randB = random(255);
-  let i = 0;
-  if(i < 5){
-    // randR-=10;
-    // randB-=10;
-    // randG-=10;
-    // fill(randR, randG, randB);
-    oldSize = newSize;
-    newSize += 10;
-    fill(random(255), random(255), random(255), 50);
-    sleep(1000);
-    circle(100, 100, newSize);
-    i++;
-    // fill(0,0,0, 50);
-    // circle(randx, randy, oldSize);
-  }
-}
-
-
-
-
-function sleep(milliseconds) {
-  const startTime = millis();
-  while (true) {
-    // console.log(millis(), startTime, startTime+milliseconds);
-    if (millis() > startTime + milliseconds){
-      break;
-    }
-  }
-}
