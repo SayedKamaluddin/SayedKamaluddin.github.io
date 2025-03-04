@@ -2,21 +2,31 @@
 // Kamaluddin Hashimy
 // Mar 4, 2025
 //
-// Extra for Experts: Reacts to sound beeats
+// Extra for Experts:Loads and Reacts to Music
 // - describe what you did to take this project "above and beyond"
 
+
+//Defining Global Varibles
 let x, y;
 let boxSize = 5;
-let rows, cols;
+// let rows, cols;
 let song;
-let fillColor = "white";
-let amp;
-let val;
+let fillColor = "blue";
+let amp, val;
 
+//Preloading the song
 function preload() {
-  song = loadSound("../sound-sample.webm");
+  try{
+    song = new p5.AudioIn();
+    console.log('true');
+  }
+  catch{
+    song = loadSound("../sound-sample02.m4a");
+    console.log('false');
+  }
 }
 
+//Setup Function, Created the canvas, set the background, and got the amplitude of the song
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // rows = height / boxSize;
@@ -28,8 +38,9 @@ function setup() {
   amp = new p5.Amplitude();
 }
 
+//Calls all the functions and Drows them in Canvas
 function draw() {
-  background(20,10,20,10);
+  background(20,10,10,10);
   changeMouseSournding();
   reactToSound();
   // if (isDetected){
@@ -37,6 +48,7 @@ function draw() {
   // }
 }
 
+//Createes a Circle if the mouse moves
 function changeMouseSournding(){
   if (x!==mouseX || y!==mouseY){
     fill(fillColor);
@@ -46,30 +58,31 @@ function changeMouseSournding(){
     // fill(20,10,20);
     // circle(mouseX, mouseY, 45); 
   }
-  else{
-    noFill();
-    // circle(mouseX, mouseY, 50);
-  }
+  // else{
+  //   noFill();
+  //   // circle(mouseX, mouseY, 50);
+  // }
 }
 
-
+//Gest the Apm and valume of the preLoaded song and creates random Ellipses if the sound reaches the desicnated amount
 function reactToSound(){
   val = amp.getLevel();
   console.log(val);
-  if (val > 0.2){
+
+  if (val > 0.3){
     fill(fillColor);
-    ellipse(random(0, windowWidth), random(0, windowHeight), random(25,100), random(25,75));
+    ellipse(random(0, width), random(0, height), random(25,100), random(25,75));
   }
 }
 
-
+//Creates a random Ellipse if a key is preesed
 function keyPressed(){
   checkForColorChange();
   fill(fillColor);
-  ellipse(random(0, windowWidth), random(0, windowHeight), random(25,100), random(25,75));
+  ellipse(random(0, width), random(0, height), random(25,100), random(25,75));
 }
 
-
+//checks what keys are pressed and Makes changes accordingly
 function checkForColorChange(){
   if (keyIsDown(16) && keyIsDown(82)){
     fillColor = "red";
