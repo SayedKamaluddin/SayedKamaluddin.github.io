@@ -97,17 +97,18 @@ function checkForColorChange(){
       }
     }
     if (keyIsDown(80)){
-        song.play();
-      }
+      song.play();
+    }
     else if (keyIsDown(83)){
-        song.stop();
-      }
+      song.stop();
+    }
     if (keyIsDown(77) && micIsDetected){
       if (micOn){
         mic.stop();
         console.log("Stopped");
-        micOn = false
-      } else {
+        micOn = false;
+      }
+      else {
         mic.start();
         micOn = true;
         console.log("Started");
