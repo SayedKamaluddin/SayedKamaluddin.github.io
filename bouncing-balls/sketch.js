@@ -13,29 +13,44 @@ function setup() {
 }
 
 function draw() {
-  background(220);
-  for(ball of ballArray){
-    //
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-    console.log(ball);
-
-    // if(ball.x >width){
-    //   ball.x -= width;
-    // }
-    // else if(ball.x < 0){
-    //   ball.x += width;
-    // }
-
-
-    fill("red");
-    circle(ball.x, ball.y, ball.radius*2);
+  background(225);
+  for(let ball of ballArray){
+    moveball(ball);
+    displayball(ball);
   }
 }
 
 function mousePressed(){
+  fill(random(255),random(255),random(255));
   spownBall();
 }
+
+function moveball(ball){
+  //move ball
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+  console.log(ball);
+
+  // telleport around edge of the screen
+  if(ball.x-ball.radius >width){
+    ball.x = -ball.radius;
+  }
+  else if(ball.x+ball.radius < 0){
+    ball.x = width + ball.radius;
+  }
+  if(ball.y-ball.radius>height){
+    ball.y = -ball.radius;
+  }
+  else if(ball.y+ball.radius < 0){
+    ball.y = height+ball.radius;
+  }
+}
+
+function displayball(ball){
+  //draw the ciecle
+  circle(ball.x, ball.y, ball.radius*2);
+}
+
 
 function spownBall(){
   let someball = {
