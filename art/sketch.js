@@ -2,7 +2,7 @@
 //Using Object Notation and Arrays
 // March 07, 2025
 
-const LINESIZE = 50;
+const LINESIZE = 20;
 let lineArray = [];
 let someLine;
 
