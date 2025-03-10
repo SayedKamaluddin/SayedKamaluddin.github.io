@@ -5,5 +5,6 @@
 - [Genarative Art](art)
 
 # cs30 projects
-- [First Project Clock](First-Project-Clock)
+- [Clock Project](First-Project-Clock)
 - [Intractive Seen](intractive-seen)
+- [Array Obeject and Notation Assignment](aon-assignment)
