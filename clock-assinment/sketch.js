@@ -7,22 +7,31 @@
 
 let radius;
 let xCenter;
+let yCenter;
+let hHand;
+let mHand;
+let sHand;
+
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  yCenter = height/2;
+  xCenter = width/2;
   if (windowHeight>windowWidth){
-    radius = width/2;
+    radius = xCenter;
   }
   else{
-    radius = height/2;
+    radius = yCenter;
   }
+  
+
 }
 
 function draw() {
+  // arc()
   background(220);
-  circle(width/2, height/2, radius*2);
-  line(width/2, 0, width ,height);
-  line(width, 0, 0,height);
-  line(0 ,height/2, width ,height/2);
-  line(width/2 ,0, width/2 ,height);
+  circle(xCenter, yCenter, radius*2);
+  // fill(15);
+  arc(xCenter, yCenter, 10, radius, 0, PI);
 }
