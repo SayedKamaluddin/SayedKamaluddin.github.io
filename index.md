@@ -6,6 +6,6 @@
 - [Perline Noise Demo](perlin)
 
 # cs30 projects
-- [Clock Project](First-Project-Clock)
+- [Clock Project](clock-assainment)
 - [Intractive Seen](intractive-seen)
-- [Array Obeject and Notation Assignment](aon-assignment)
+- [Array and Obeject Notation Assignment](ao-assignment)
