@@ -4,6 +4,7 @@
 - [Bouncing Balls](bouncing-balls)
 - [Genarative Art](art)
 - [Perline Noise Demo](perlin)
+- [Train Genaration](train)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
