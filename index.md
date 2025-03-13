@@ -9,4 +9,4 @@
 # cs30 projects
 - [Clock Project](clock-assainment)
 - [Intractive Seen](intractive-seen)
-- [Array and Obeject Notation Assignment](ao-assignment)
+- [Cross The River AO-Assignment](ao-assignment)
