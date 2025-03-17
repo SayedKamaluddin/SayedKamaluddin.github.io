@@ -5,6 +5,7 @@
 - [Genarative Art](art)
 - [Perline Noise Demo](perlin)
 - [Train Genaration](train)
+- [Remove Bubble Objects](bubbles)
 
 # cs30 projects
 - [Clock Project](clock-assainment)

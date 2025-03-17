@@ -46,15 +46,16 @@ function draw() {
   drawingBlocks();
   character();
   startingText();
-
+  stayOnBlock();
 }
 
 function startingText(){
   fill(0);
   textSize(35);
-  text('Just Cross the Road',width/2-150,50);
+  text('Just Cross the River',width/2-150,50);
   textSize(25);
   text(blocks[1].y,width/2-130,80);
+  text(blocks[0].y,width/2-130,120);
   // text('Use W,S,D,A to move',width/2-130,80);
 }
 
@@ -70,11 +71,11 @@ function drawingBlocks(){
   for (let block of blocks){
     rect(block.x,block.y,block.w,block.h);
     block.y += block.speed;
-    if (block.y > height+400){
-      block.y = -random(300)-block.y;
+    if (block.y > height+block.h){
+      block.y = -block.h;
     }
     else if (block.y < -400){
-      block.y = random(300)+height;
+      block.y = block.h+height;
     } 
   }
 }
@@ -109,13 +110,15 @@ function keyPressed(){
   }
 }
 
-// function moveCharIfInBlock(){
-//   for(let block of blocks){
-//     if(charX>block.x && charX<block.x+block.w){
-          
-//     }
-//   }
-// }
+function stayOnBlock(){
+  for(let block of blocks){
+    if(charX>block.x && charX<block.x+block.w && charY>block.y && charY<block.y+block.h){
+      let dis = charY-block.y;
+      charY = block.y+dis; 
+      console.log(charY);
+    }
+  }
+}
 
 function spownBlocks(blockX, blockY, directions){
   let theBlock = {
