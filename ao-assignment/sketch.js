@@ -7,8 +7,8 @@
 
 let avgSpeed = 1;
 let laneSize = 100;
-let numOfLane = 4;
-let level = 2;
+let level = 0;
+let numOfLane = 3;
 let lanes = [];
 let blocks = [];
 let theX, startLane;
@@ -16,6 +16,9 @@ let charX, charY;
 let blockY;
 let charSize = 50;
 let blockDirections=1;
+let onBlock = true;
+let dis;
+let levelDone = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -37,7 +40,6 @@ function setup() {
     blocks.push(spownBlocks(theX, -blockY, blockDirections));
     theX += laneSize;
   }
-  console.log(blocks,lanes);
 }
 
 function draw() {
@@ -47,6 +49,9 @@ function draw() {
   character();
   startingText();
   stayOnBlock();
+  if ( charX > width-startLane){
+    won();
+  }
 }
 
 function startingText(){
@@ -54,9 +59,7 @@ function startingText(){
   textSize(35);
   text('Just Cross the River',width/2-150,50);
   textSize(25);
-  text(blocks[1].y,width/2-130,80);
-  text(blocks[0].y,width/2-130,120);
-  // text('Use W,S,D,A to move',width/2-130,80);
+  text('Use W,S,D,A to move',width/2-130,80);
 }
 
 function drawingLanes(){
@@ -98,24 +101,33 @@ function character(){
 function keyPressed(){
   if (keyIsDown(87) && charY > 80){
     charY-=laneSize;
+    onBlock = true;
   }
   else if (keyIsDown(83) && charY < height-100){
     charY+=laneSize;
+    onBlock = true;
   }
-  else if (keyIsDown(68) && charX < width-100){
+  else if (keyIsDown(68)){
     charX+=laneSize;
+    onBlock = true;
   }
   else if (keyIsDown(65) && charX > 100){
     charX-=laneSize;
+    onBlock = true;
   }
 }
 
 function stayOnBlock(){
   for(let block of blocks){
     if(charX>block.x && charX<block.x+block.w && charY>block.y && charY<block.y+block.h){
-      let dis = charY-block.y;
+      if(onBlock){
+        dis = charY-block.y;
+        onBlock=false;
+      }
       charY = block.y+dis; 
-      console.log(charY);
+    }
+    else if (charX>block.x && charX<block.x+block.w){
+      lost();
     }
   }
 }
@@ -129,4 +141,46 @@ function spownBlocks(blockX, blockY, directions){
     speed: random(avgSpeed, avgSpeed+2)*directions,
   };
   return theBlock;
+}
+
+function won(){
+  noLoop();
+  level++;
+  textSize(35);
+  fill(0);
+  text("Nice", width/2-23, height/2+3);
+  fill("yellow");
+  text("Nice", width/2-25, height/2);
+  levelDone = true;
+  // for (let i = 0; i < numOfLane; i++){
+    //   if(i%2 === 0){
+      //     blockY = random(300);
+      //     blockDirections = 1;
+  //   }
+  //   else{
+  //     blockY = height + random(300);
+  //     blockDirections = -1;
+  //   }
+  // }
+  // lanes.push(spownLane(theX));
+  // blocks.push(spownBlocks(theX, -blockY, blockDirections));
+  // theX += laneSize;
+  
+}
+
+function doubleClicked(){
+  if (levelDone){
+    redraw();
+    levelDone = false;
+}
+}
+
+function lost(){
+  noLoop();
+  level = 0;
+  textSize(35);
+  fill(0);
+  text("You Lose, refresh the page to try again", width/2-297, height/2+3);
+  fill("yellow");
+  text("You Lose, refresh the page to try again", width/2-300, height/2);
 }
