@@ -7,7 +7,7 @@
 
 let avgSpeed = 1;
 let laneSize = 100;
-let level = 0;
+let level = 1;
 let numOfLane = 3;
 let lanes = [];
 let blocks = [];
@@ -19,27 +19,12 @@ let blockDirections=1;
 let onBlock = true;
 let dis;
 let levelDone = false;
+let levelFailed = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  startLane = width/2-numOfLane/2*laneSize;
-  theX = startLane;
-  charX = startLane-70;
-  charY = height/2;
   stroke(255,255,255,80);
-  for (let i = 0; i < numOfLane; i++){
-    if(i%2 === 0){
-      blockY = random(300);
-      blockDirections = 1;
-    }
-    else{
-      blockY = height + random(300);
-      blockDirections = -1;
-    }
-    lanes.push(spownLane(theX));
-    blocks.push(spownBlocks(theX, -blockY, blockDirections));
-    theX += laneSize;
-  }
+  setupBlocksNLanes();
 }
 
 function draw() {
@@ -55,11 +40,8 @@ function draw() {
 }
 
 function startingText(){
-  fill(0);
-  textSize(35);
-  text('Just Cross the River',width/2-150,50);
-  textSize(25);
-  text('Use W,S,D,A to move',width/2-130,80);
+  myText(35, 'Just Cross the River', width/2-150,50);
+  myText(25, 'Use W,S,D,A to move',width/2-130,80);
 }
 
 function drawingLanes(){
@@ -95,16 +77,16 @@ function spownLane(rectX){
 
 function character(){
   fill('red');
-  rect( charX, charY, charSize);
+  circle( charX, charY, charSize);
 }
 
 function keyPressed(){
   if (keyIsDown(87) && charY > 80){
-    charY-=laneSize;
+    charY-=laneSize/2;
     onBlock = true;
   }
   else if (keyIsDown(83) && charY < height-100){
-    charY+=laneSize;
+    charY+=laneSize/2;
     onBlock = true;
   }
   else if (keyIsDown(68)){
@@ -135,7 +117,7 @@ function stayOnBlock(){
 function spownBlocks(blockX, blockY, directions){
   let theBlock = {
     x: blockX+10,
-    y: blockY,
+    y: -blockY,
     w: laneSize-20,
     h: random(80,400),
     speed: random(avgSpeed, avgSpeed+2)*directions,
@@ -143,44 +125,75 @@ function spownBlocks(blockX, blockY, directions){
   return theBlock;
 }
 
-function won(){
-  noLoop();
-  level++;
-  textSize(35);
-  fill(0);
-  text("Nice", width/2-23, height/2+3);
-  fill("yellow");
-  text("Nice", width/2-25, height/2);
-  levelDone = true;
-  // for (let i = 0; i < numOfLane; i++){
-    //   if(i%2 === 0){
-      //     blockY = random(300);
-      //     blockDirections = 1;
-  //   }
-  //   else{
-  //     blockY = height + random(300);
-  //     blockDirections = -1;
-  //   }
-  // }
-  // lanes.push(spownLane(theX));
-  // blocks.push(spownBlocks(theX, -blockY, blockDirections));
-  // theX += laneSize;
-  
+function testIfGameIsFinished(){
+  let finishLevel = width-100/laneSize;
+  if (level===finishLevel){
+    noLoop();
+  }
 }
 
-function doubleClicked(){
-  if (levelDone){
-    redraw();
-    levelDone = false;
+function won(){
+  level++;
+  numOfLane = 3+level-1;
+  myText(35, "Nice, DoubleClick to Start the new Level", width/2-25, height/2);
+  levelDone = true;
+  noLoop();
 }
+
+function setupBlocksNLanes(){
+  blocks = [];
+  lanes = [];
+  startLane = width/2-numOfLane/2*laneSize;
+  theX = startLane;
+  charX = startLane-charSize;
+  charY = height/2;
+  for (let i = 0; i < numOfLane; i++){
+    if(i%2 === 0){
+      blockY = random(300);
+      blockDirections = 1;
+    }
+    else{
+      blockY = height + random(300);
+      blockDirections = -1;
+    }
+    lanes.push(spownLane(theX));
+    blocks.push(spownBlocks(theX, blockY, blockDirections));
+    theX += laneSize;
+  }
+}
+
+function startNewLevel(){
+  if (levelDone){
+    setupBlocksNLanes();
+    loop();
+  }
 }
 
 function lost(){
   noLoop();
   level = 0;
-  textSize(35);
+  myText(35, "You Lose, DoubleClick to try again", width/2-300, height/2);
+  levelFailed = true;
+}
+
+function restart(){
+  if (levelFailed){
+    levelFailed = false;
+    charX = startLane-charSize;
+    charY = height/2;
+    loop();
+  }
+}
+
+function doubleClicked(){
+  startNewLevel();
+  restart();
+}
+
+function myText(size, sentence, x, y){
+  textSize(size);
   fill(0);
-  text("You Lose, refresh the page to try again", width/2-297, height/2+3);
+  text(sentence, x-3, y-3);
   fill("yellow");
-  text("You Lose, refresh the page to try again", width/2-300, height/2);
+  text(sentence, x, y);
 }
