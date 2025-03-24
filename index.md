@@ -6,6 +6,7 @@
 - [Perline Noise Demo](perlin)
 - [Train Genaration](train)
 - [Remove Bubble Objects](bubbles)
+- [Grid Neighbours](neigbors)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
