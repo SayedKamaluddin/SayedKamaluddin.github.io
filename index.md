@@ -7,6 +7,7 @@
 - [Train Genaration](train)
 - [Remove Bubble Objects](bubbles)
 - [Grid Neighbours](neigbors)
+- [Rectangler Grid](rectangler-grid)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
