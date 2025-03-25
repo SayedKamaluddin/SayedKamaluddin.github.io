@@ -8,6 +8,7 @@
 - [Remove Bubble Objects](bubbles)
 - [Grid Neighbours](neigbors)
 - [Rectangler Grid](rectangler-grid)
+- [Game Of Life](game-of-life)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
