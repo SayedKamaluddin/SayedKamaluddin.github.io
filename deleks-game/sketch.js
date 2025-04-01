@@ -11,7 +11,6 @@ const OPEN_TILE = 0;
 const ALIVE_ENEMY = 1;
 const DEAD_ENEMY = 2;
 const PLAYER = 9;
-let enemies = [];
 let thePlayer = {
   x:0,
   y:0,
@@ -23,7 +22,8 @@ function setup() {
   cols = Math.ceil(width/CELL_SIZE);
   rows = Math.ceil(height/CELL_SIZE);
   grid = generateGrid(cols, rows);
-
+  
+  genarateEnemies();
   thePlayer.x = rows/2;
   thePlayer.y = cols/2;
   grid[thePlayer.y][thePlayer.x] = PLAYER;
@@ -35,13 +35,9 @@ function draw() {
 }
 
 function genarateEnemies(){
-  for(let i; i< level+3; i++){
-    let theEnemy = {
-      x:random(rows),
-      y:random(cols),
-    };
-    grid[y][x]=1;
-    enemies.push(theEnemy);
+  for(let i=0; i<3+level; i++){
+    grid[round(random(rows))][round(random(cols))] = ALIVE_ENEMY;
+    // console.log('done');
   }
 }
 
@@ -91,8 +87,40 @@ function movePlayer(x,y){
     
     
     grid[thePlayer.y][thePlayer.x] = PLAYER;
+    moveEnemies();
   }
 }
+
+function moveEnemies(){
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (grid[y][x] === ALIVE_ENEMY) {
+        let newX = x;
+        let newY = y;
+
+        grid[y][x] = OPEN_TILE;
+        
+        if (x<thePlayer.x) {
+          newX++;
+        }
+        if (x>thePlayer.x) {
+          newX--;
+        }
+        if (y<thePlayer.y) {
+          newY++;
+        }
+        if (y>thePlayer.y) {
+          newY--;
+        }
+        
+        grid[newY][newX] = ALIVE_ENEMY;        
+      }
+    }
+  }
+  
+}
+
 
 function toggleCell(x,y){
   // make sure cell you're toggling is actually in the grid
@@ -113,14 +141,14 @@ function displayGrid() {
       if (grid[y][x] === OPEN_TILE) {
         fill("white");
       }
-      else if (grid[y][x] === DEAD_ENEMY) {
+      else if (grid[y][x] === ALIVE_ENEMY) {
         fill("black");
       }
       else if (grid[y][x] === PLAYER) {
         fill("red");
       }
       
-      
+      // console.log(grid);
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
     }
   }
