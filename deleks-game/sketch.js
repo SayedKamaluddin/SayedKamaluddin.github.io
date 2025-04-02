@@ -102,25 +102,31 @@ function moveEnemies(){
         grid[y][x] = OPEN_TILE;
         
         if (x<thePlayer.x) {
-          newX++;
+          newX = newX+1;
+          // newX += 1;
+          // newX++;
         }
         if (x>thePlayer.x) {
-          newX--;
+          newX = newX-1;
+          // newX -= 1;
+          // newX--;
         }
         if (y<thePlayer.y) {
-          newY++;
+          newY = newY+1;
+          // newY += 1;
+          // newY++;
         }
         if (y>thePlayer.y) {
-          newY--;
+          newY = newY-1;
+          // newY -= 1;
+          // newY--;
         }
         
         grid[newY][newX] = ALIVE_ENEMY;        
       }
     }
-  }
-  
+  } 
 }
-
 
 function toggleCell(x,y){
   // make sure cell you're toggling is actually in the grid
