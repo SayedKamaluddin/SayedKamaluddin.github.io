@@ -51,8 +51,8 @@ function generateGrid(cols, rows) {
 
 function genarateEnemies(){
   for(let i=0; i<3+level; i++){
-    let random_rows=[round(random(rows))];
-    let random_cols=[round(random(cols))];
+    let random_rows=[floor(random(rows))];
+    let random_cols=[floor(random(cols))];
     grid[random_rows][random_cols] = ALIVE_ENEMY;
     console.log([random_rows, random_cols]);
   }
@@ -66,6 +66,9 @@ function displayGrid() {
       }
       else if (grid[y][x] === ALIVE_ENEMY) {
         fill("black");
+      }
+      else if (grid[y][x] === DEAD_ENEMY) {
+        fill("brown");
       }
       else if (grid[y][x] === PLAYER) {
         fill("red");
@@ -105,10 +108,40 @@ function keyPressed(){
   else if(key === '5'){
     movePlayer(thePlayer.x, thePlayer.y);
   }
+  else if(key === 't'){
+    teleportPlayer();
+  }
+  else if(key === 'b'){
+    explodePlayer();
+  }
+
+}
+
+function teleportPlayer(){
+  let newX = floor(random(cols));
+  let newY = floor(random(rows));
+  if (grid[newY][newX] === OPEN_TILE){
+    let oldX = thePlayer.x;
+    let oldY = thePlayer.y;
+    grid[oldY][oldX] = OPEN_TILE;
+    thePlayer.x = newX;
+    thePlayer.y = newY;
+    grid[thePlayer.y][thePlayer.x] = PLAYER;
+    moveEnemies();
+  }
+}
+
+function explodetPlayer(){
+  let pX = thePlayer.x;
+  let pY = thePlayer.y;
+  if (grid[pY-1][pX-1] === ALIVE_ENEMY){
+    grid[pY-1][pX-1] = DEAD_ENEMY;
+    moveEnemies();
+  }
 }
 
 function movePlayer(x,y){
-  if(x >= 0 && x< cols && y >= 0 && y < rows && grid [y][x] === OPEN_TILE){
+  if(x >= 0 && x< cols && y >= 0 && y < rows && grid [y][x] !== DEAD_ENEMY){
     let oldX = thePlayer.x;
     let oldY = thePlayer.y;
     grid[oldY][oldX] = OPEN_TILE;
@@ -143,7 +176,12 @@ function moveEnemies(){
         new_positions.push([newX,newY]);
       }
     }
-  } 
+  }
+  // let duplicates = new_positions.filter((item, index) => new_positions.indexOf(item) !== index);
+  // console.log([2,2] === [2,2]);
+
+  // console.log(duplicates);
+  // console.log(new_positions);
   for(let i of new_positions){
     grid[i[1]][i[0]] = ALIVE_ENEMY;
   }
