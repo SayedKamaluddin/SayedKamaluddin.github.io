@@ -28,8 +28,8 @@ function setup() {
   grid = generateGrid(cols, rows);
 
   genarateEnemies();
-  thePlayer.x = round(rows/2);
-  thePlayer.y = round(cols/2);
+  thePlayer.x = floor(rows/2);
+  thePlayer.y = floor(cols/2);
   grid[thePlayer.y][thePlayer.x] = PLAYER;
 }
 
@@ -131,13 +131,18 @@ function teleportPlayer(){
   }
 }
 
-function explodetPlayer(){
+function explodePlayer(){
   let pX = thePlayer.x;
   let pY = thePlayer.y;
-  if (grid[pY-1][pX-1] === ALIVE_ENEMY){
-    grid[pY-1][pX-1] = DEAD_ENEMY;
-    moveEnemies();
+  for (let i = -1; i<=1;i++){
+    for (let j = -1; j<=1; j++){
+      console.log(grid[pX+i][pY+j],pX+i,pY+j);
+      if (grid[pY+i][pX+j] === ALIVE_ENEMY){
+        grid[pY+i][pX+j] = DEAD_ENEMY;
+      }
+    }
   }
+  moveEnemies();
 }
 
 function movePlayer(x,y){
@@ -153,7 +158,7 @@ function movePlayer(x,y){
 }
 
 function moveEnemies(){
-  let new_positions = [];
+  let newPositions = [];
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (grid[y][x] === ALIVE_ENEMY) {
@@ -173,16 +178,22 @@ function moveEnemies(){
           newY--;
         }
 
-        new_positions.push([newX,newY]);
+        newPositions.push([newX,newY]);
       }
     }
   }
-  // let duplicates = new_positions.filter((item, index) => new_positions.indexOf(item) !== index);
-  // console.log([2,2] === [2,2]);
+  // let duplicates = newPositions.filter((item, index) => newPositions.indexOf(item) !== index);
 
-  // console.log(duplicates);
+  // console.log(array.indexOf([4,6]));
   // console.log(new_positions);
-  for(let i of new_positions){
-    grid[i[1]][i[0]] = ALIVE_ENEMY;
+  for(let i=0; i<newPositions.length; i++){
+    for(let j=0; j<newPositions.length; j++){
+      if (newPositions[i][1] === newPositions[j][1] && newPositions[i][0] === newPositions[j][0]){
+        console.log("true");
+      }
+    }
+  }
+  for(let enemyPosition of newPositions){
+    grid[enemyPosition[1]][enemyPosition[0]] = ALIVE_ENEMY;
   }
 }
