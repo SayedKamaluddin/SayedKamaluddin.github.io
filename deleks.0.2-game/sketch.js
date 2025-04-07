@@ -186,14 +186,30 @@ function moveEnemies(){
 
   // console.log(array.indexOf([4,6]));
   // console.log(new_positions);
-  for(let i=0; i<newPositions.length; i++){
-    for(let j=0; j<newPositions.length; j++){
-      if (newPositions[i][1] === newPositions[j][1] && newPositions[i][0] === newPositions[j][0]){
-        console.log("true");
+  // for(let i=0; i<newPositions.length; i++){
+  //   for(let j=0; j<newPositions.length; j++){
+  //     if (newPositions[i][1] === newPositions[j][1] && newPositions[i][0] === newPositions[j][0]){
+  //       console.log("true");
+  //     }
+  //     console.log(newPositions[i][1], newPositions[j][1], newPositions[i][0], newPositions[j][0]);
+  //   }
+  // }
+
+
+  for(let i of newPositions){
+    for (let j of newPositions){
+      if (i[0] === j[0] && i[1] === j[1]){
+        console.log(true);
+        console.log(i, j);
       }
     }
   }
+
   for(let enemyPosition of newPositions){
     grid[enemyPosition[1]][enemyPosition[0]] = ALIVE_ENEMY;
   }
+}
+
+function printInHTML(){
+  
 }
