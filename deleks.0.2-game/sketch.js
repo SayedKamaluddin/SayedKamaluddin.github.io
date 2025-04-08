@@ -15,6 +15,7 @@ let grid;
 let rows;
 let cols;
 let level=1;
+let countAliveEnemies = 5+level;
 let thePlayer = {
   x:0,
   y:0,
@@ -50,7 +51,7 @@ function generateGrid(cols, rows) {
 }
 
 function genarateEnemies(){
-  for(let i=0; i<3+level; i++){
+  for(let i=0; i<countAliveEnemies; i++){
     let random_rows=[floor(random(rows))];
     let random_cols=[floor(random(cols))];
     grid[random_rows][random_cols] = ALIVE_ENEMY;
@@ -136,8 +137,7 @@ function explodePlayer(){
   let pY = thePlayer.y;
   for (let i = -1; i<=1;i++){
     for (let j = -1; j<=1; j++){
-      console.log(grid[pX+i][pY+j],pX+i,pY+j);
-      if (grid[pY+i][pX+j] === ALIVE_ENEMY){
+      if (pY+i >= 0 && pY+i <= cols && pX+j >= 0 && pX+j <= rows && grid[pY+i][pX+j] === ALIVE_ENEMY){
         grid[pY+i][pX+j] = DEAD_ENEMY;
       }
     }
@@ -159,6 +159,7 @@ function movePlayer(x,y){
 
 function moveEnemies(){
   let newPositions = [];
+  let crush = false;
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (grid[y][x] === ALIVE_ENEMY) {
@@ -177,30 +178,20 @@ function moveEnemies(){
         if (y>thePlayer.y) {
           newY--;
         }
-
-        newPositions.push([newX,newY]);
-      }
-    }
-  }
-  // let duplicates = newPositions.filter((item, index) => newPositions.indexOf(item) !== index);
-
-  // console.log(array.indexOf([4,6]));
-  // console.log(new_positions);
-  // for(let i=0; i<newPositions.length; i++){
-  //   for(let j=0; j<newPositions.length; j++){
-  //     if (newPositions[i][1] === newPositions[j][1] && newPositions[i][0] === newPositions[j][0]){
-  //       console.log("true");
-  //     }
-  //     console.log(newPositions[i][1], newPositions[j][1], newPositions[i][0], newPositions[j][0]);
-  //   }
-  // }
-
-
-  for(let i of newPositions){
-    for (let j of newPositions){
-      if (i[0] === j[0] && i[1] === j[1]){
-        console.log(true);
-        console.log(i, j);
+        
+        for(let i of newPositions){
+          if (i[0] === newX && i[1] === newY || grid[newY][newX]===DEAD_ENEMY){
+            crush = true;
+            newPositions.splice(newPositions.indexOf(i));
+            grid[newY][newX] = DEAD_ENEMY;
+          }
+        }
+        if (crush){
+          crush = false;
+        }
+        else {
+          newPositions.push([newX,newY]);
+        }
       }
     }
   }
