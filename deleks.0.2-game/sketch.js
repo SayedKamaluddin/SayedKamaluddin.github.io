@@ -1,9 +1,9 @@
-// Project Title
-// Your Name
-// Date
+// Array-Assinment Deleks Game Remake
+// Kamaluddin
+// April 10, 2025
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Gets some elements of from Javascript and prints in HTML file in real time
 
 
 const CELL_SIZE = 700/23;
@@ -15,23 +15,26 @@ let grid;
 let rows;
 let cols;
 let level=1;
-let countAliveEnemies = 5+level;
+let countAliveEnemies = 5;
 let thePlayer = {
   x:0,
   y:0,
 };
 
 
+function startup(){
+  genarateEnemies();
+  thePlayer.x = floor(rows/2);
+  thePlayer.y = floor(cols/2);
+  grid[thePlayer.y][thePlayer.x] = PLAYER;
+}
+
 function setup() {
   createCanvas(700, 700);
   cols = Math.ceil(width/CELL_SIZE);
   rows = Math.ceil(height/CELL_SIZE);
   grid = generateGrid(cols, rows);
-
-  genarateEnemies();
-  thePlayer.x = floor(rows/2);
-  thePlayer.y = floor(cols/2);
-  grid[thePlayer.y][thePlayer.x] = PLAYER;
+  startup();
 }
 
 function draw() {
@@ -51,11 +54,10 @@ function generateGrid(cols, rows) {
 }
 
 function genarateEnemies(){
-  for(let i=0; i<countAliveEnemies; i++){
+  for(let i=0; i<5*level; i++){
     let random_rows=[floor(random(rows))];
     let random_cols=[floor(random(cols))];
     grid[random_rows][random_cols] = ALIVE_ENEMY;
-    console.log([random_rows, random_cols]);
   }
 }
 
@@ -75,7 +77,6 @@ function displayGrid() {
         fill("red");
       }
       
-      // console.log(grid);
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
     }
   }
@@ -116,6 +117,7 @@ function keyPressed(){
     explodePlayer();
   }
 
+  writeInsideHTML();
 }
 
 function teleportPlayer(){
@@ -159,7 +161,6 @@ function movePlayer(x,y){
 
 function moveEnemies(){
   let newPositions = [];
-  let crush = false;
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (grid[y][x] === ALIVE_ENEMY) {
@@ -179,28 +180,33 @@ function moveEnemies(){
           newY--;
         }
         
-        for(let i of newPositions){
-          if (i[0] === newX && i[1] === newY || grid[newY][newX]===DEAD_ENEMY){
-            crush = true;
-            newPositions.splice(newPositions.indexOf(i));
-            grid[newY][newX] = DEAD_ENEMY;
-          }
-        }
-        if (crush){
-          crush = false;
-        }
-        else {
-          newPositions.push([newX,newY]);
-        }
+        newPositions.push([newX,newY]);
       }
     }
   }
-
+  countAliveEnemies = 0;
   for(let enemyPosition of newPositions){
-    grid[enemyPosition[1]][enemyPosition[0]] = ALIVE_ENEMY;
+    if (grid[enemyPosition[1]][enemyPosition[0]] === OPEN_TILE){
+      grid[enemyPosition[1]][enemyPosition[0]] = ALIVE_ENEMY;
+      countAliveEnemies++;
+    }
+    else if (grid[enemyPosition[1]][enemyPosition[0]] === ALIVE_ENEMY || grid[enemyPosition[1]][enemyPosition[0]] === DEAD_ENEMY){
+      grid[enemyPosition[1]][enemyPosition[0]] = DEAD_ENEMY;
+    }
+    else if (grid[enemyPosition[1]][enemyPosition[0]] === PLAYER){
+      grid[enemyPosition[1]][enemyPosition[0]] = DEAD_ENEMY;
+    }
   }
 }
 
-function printInHTML(){
-  
+function nextLevel(){
+  if (countAliveEnemies === 0){
+    startup();
+    print('worked');
+  }
+}
+
+function writeInsideHTML(){
+  document.getElementById("Level").innerHTML = 'Level: ' + level;
+  document.getElementById("AliveEnemies").innerHTML = 'Alive Enemies ' + countAliveEnemies;
 }
