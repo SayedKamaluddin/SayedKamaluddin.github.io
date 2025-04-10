@@ -49,7 +49,9 @@ function showMessage(message, delayTime, afterTheMessage) {
 
   setTimeout(() => {
     messageDiv.style.display = "none";
-    if (afterTheMessage) afterTheMessage();
+    if (afterTheMessage) {
+      afterTheMessage();
+    };
   }, delayTime);
 }
 
