@@ -15,4 +15,5 @@
 - [Clock Project](clock-assainment)
 - [Intractive Seen](intractive-seen)
 - [Cross The River AO-Assignment](ao-assignment)
-- [Grid-Based Deleks Game](deleks-game)
+- [Deleks Game demo (not completed)](deleks-game)
+- [Grid-Based-Game Deleks Reborn](deleks.0.2-game)
