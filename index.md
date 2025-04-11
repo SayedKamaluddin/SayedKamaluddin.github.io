@@ -10,6 +10,7 @@
 - [Rectangler Grid](rectangler-grid)
 - [Game Of Life](game-of-life)
 - [Character Grid](character-grid)
+- [Walker OOP](walker)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
