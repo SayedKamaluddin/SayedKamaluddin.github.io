@@ -11,6 +11,7 @@
 - [Game Of Life](game-of-life)
 - [Character Grid](character-grid)
 - [Walker OOP](walker)
+- [Fireworks OOP](fireworks)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
