@@ -12,6 +12,8 @@
 - [Character Grid](character-grid)
 - [Walker OOP](walker)
 - [Fireworks OOP](fireworks)
+- [Connect Nodes](nodes)
+- [Translate Rotations](rotate)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
