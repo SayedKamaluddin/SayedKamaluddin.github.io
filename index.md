@@ -14,6 +14,7 @@
 - [Fireworks OOP](fireworks)
 - [Connect Nodes](nodes)
 - [Translate Rotations](rotate)
+- [Local Storage](local-storage)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
