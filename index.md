@@ -15,6 +15,7 @@
 - [Connect Nodes](nodes)
 - [Translate Rotations](rotate)
 - [Local Storage](local-storage)
+- [2D Collide](2d-collide)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
