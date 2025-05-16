@@ -16,6 +16,7 @@
 - [Translate Rotations](rotate)
 - [Local Storage](local-storage)
 - [2D Collide](2d-collide)
+- [OOP inheritance ](inheritance)
 
 # cs30 projects
 - [Clock Project](clock-assainment)
